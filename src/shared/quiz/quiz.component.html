@@ -1,0 +1,56 @@
+<div *ngIf="quiz">
+<div class="userBackground" style="background-image:url('https://assets.wordpress.envato-static.com/uploads/2017/08/Screen-Shot-2017-08-31-at-3.45.30-PM.png'); "> 
+<div style="width: 100%; position: sticky;  top: 0; z-index: 4;">
+    <div class="card-header" style="text-align: center; background: rgb(167, 164, 164);">
+        <h4 style="margin-top: 1%; color: white;">{{quiz.title}}</h4>
+        <div *ngIf= "showQuiz" class="row col-lg-7" style="margin:auto; margin-top: 1%;">
+            <progressbar  style="width: 100%; position: sticky;" max="100" [value]="progress" [striped]="true" [animate]="true" type="info"><i></i></progressbar> </div>
+    </div>
+    <div *ngIf="showQuiz" style="float:left; margin-top: 2%; "class="score">
+        Your Score:
+        <h2>{{points}}/{{answered}}</h2>
+      </div>
+    </div>
+    
+<div class="card text-center"  *ngIf="!showQuiz">
+  <div class="card-body">
+    <h5 *ngIf="quiz.description !== undefined" class="card-title">{{quiz.description}}</h5>
+    <button class="btn btn-primary" (click)="showQuiz = true">Begin</button>
+    <p *ngIf="prevScoreExists" style="color: red; margin-top: 0.5%;">
+      <span>Your previous score was <br></span>
+    <span>{{this.cookie.get('prevPoints')}} out of {{this.cookie.get('prevMax')}}</span>
+  </p>
+  </div>
+</div>
+<div *ngIf="showQuiz" style="margin-top:4%; margin-left: 12.5%; width: 67%" class="content"> 
+    <div *ngFor="let question of quiz.questions;  index as i" style="margin: 1rem 0 0 0.5rem; display: inline-flex; ">
+      <div class="card"  style="width: 18rem; margin-top: 1rem; border: 0">
+        <img src="{{question.img}}" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">Question {{i + 1}}</h5>
+            <p class="card-text">{{question.question}}</p>
+            <span *ngFor="let answer of question.answers | shuffle" (click)="checkIfAnswerIsCorrect(answer, i)">
+                <button *ngIf="guesses[i] === undefined" class="btn btn-secondary">
+                    {{answer}}</button>
+                    <span *ngIf="guesses[i] !== undefined">
+                    <button class="btn" [ngClass]="{'btn-danger': guesses[i] === answer && question.answers[0] !== answer, 
+                    'btn-success': guesses[i] === answer && question.answers[0] === answer, 'btn-light': guesses[i] !== answer}" disabled>
+                        {{answer}}</button>
+                      </span>
+                </span>
+          </div>
+        </div>
+  </div>
+</div>
+<button *ngIf="showQuiz" style="display: block; margin-left: auto; margin-right: auto;" class="btn btn-danger" (click)="reset()">Reset</button>
+</div>
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div>
+</div>
+<div *ngIf="!quiz">
+  LOADING
+</div>

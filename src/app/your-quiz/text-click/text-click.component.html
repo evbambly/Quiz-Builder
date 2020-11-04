@@ -1,0 +1,4 @@
+<input *ngIf="inputChosen === false"class="form-control {{formSize}}"
+type="text" [(ngModel)]="input" (keyup.enter)="chooseInput()" (focusout)="chooseInput()" 
+placeholder="{{placeholder}}" [ngStyle]="{'text-align': center ? 'center': 'left', 'word-wrap': 'break-word'}">
+<h3 *ngIf="inputChosen" (click)="inputChosen= false" [ngStyle]="{'font-size': fontSize+'em', color: color, 'text-align': center ? 'center': 'left'}">{{input}}</h3>

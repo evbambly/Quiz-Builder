@@ -1,0 +1,15 @@
+<div class="card text-center">
+  <div class="card-body">
+    <h5 class="card-title">Join a quiz!</h5>
+    <br><br>
+    <div class="input-group mb-3" style="width: 50%; margin: auto;">
+      <input type="number" class="form-control" placeholder="Quiz Code" #code>
+      <div class="input-group-append">
+        <button class="btn btn-outline-primary" (click)="verifyQuizCode(code)">Join</button>
+      </div>
+    </div>
+    <br><br><br><br><br>
+    <h6 class="card-title">Sign up</h6>
+    <ngx-auth-firebaseui-providers [providers]="providers"></ngx-auth-firebaseui-providers>
+  </div>
+</div>

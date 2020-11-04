@@ -1,0 +1,5 @@
+<img *ngIf="imageChosen === false" src="assets/YourQuiz/generic.png" height="150" width="150">
+<img *ngIf="imageChosen" src="{{imageUrl}}" class="card-img-top">
+<form [formGroup]="newForm">
+  <input class="form-control form-control-sm" type="text" placeholder="Image Link"  formControlName="imgInput" (keyup.enter)="chooseImage()">
+  </form>

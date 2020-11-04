@@ -1,0 +1,67 @@
+ <div class="card-header" style="text-align: center; background: rgb(167, 164, 164);">
+    <h2 style=" color: white; text-align: left">Make your own quiz!</h2>
+  </div>
+<div style="width:25rem; margin: auto; margin-top: 0.5rem">
+  <app-text-click ngDefaultControl [(ngModel)]="quizTitle" [reset]="false" [size]="2" [placeholder]="'Title'" [center]="true"></app-text-click>
+  <app-text-click ngDefaultControl [(ngModel)]="description" [reset]="false" [size]="4" [placeholder]="'Description'" [center]="true"></app-text-click>
+</div>
+<br><br>
+
+<div style="margin-top:4%; width: 77%; margin: auto;" class="content"> 
+    <div *ngFor="let question of quiz" style="margin: 0 1rem 1rem 0; display: inline-flex; ">
+      <div class="card"  style="width: 18rem; margin-top: 1rem">
+        <img src="{{question.img}}" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">Question {{quiz.indexOf(question)+1}}</h5>
+            <p class="card-text">{{question.question}}</p>
+            <span *ngFor="let answer of question.answers">
+                    <button class="btn btn-secondary">
+                        {{answer}}</button>
+                      </span>
+                      <br>
+          <button *ngIf="amendingQuestion === -1" class="btn btn-danger btn-sm" (click)="removeQuestion(question)">Remove</button>
+          <button class="btn btn-warning btn-sm" (click)="amendQuesiton(question)">Amend</button>
+                    </div>
+        </div>
+  </div>
+      </div>
+<br>
+<div>
+<div style="width: 18rem; float: left;">
+  <h3>Input a question:</h3>
+  <div class="card"  style="margin-top: 1rem;">
+    <app-text-click ngDefaultControl [(ngModel)]="question" [reset]="true" [size]="3" [placeholder]="'Question'"></app-text-click>
+    <div class="card-body">
+  <app-image-select ngDefaultControl [(ngModel)]="imageUrl"></app-image-select><br>
+      <h5 *ngIf="quiz === undefined" class="card-title">Question 1</h5>
+      <h5 *ngIf="quiz !== undefined && amendingQuestion === -1" class="card-title">Question {{quiz.length+1}}</h5>
+      <h5 *ngIf="amendingQuestion !== -1" class="card-title">Question {{amendingQuestion +1}}</h5>
+      <p class="card-text">
+        <button *ngFor="let answer of answers; let i = index" class="btn" [ngClass]="{'active': i=== targetAnswer, 'btn-primary': i=== 0, 'btn-secondary': i !== 0}" 
+         (click)="amendTargetAnswer(i)">
+         <span *ngIf="i === 0 && answer === ''">Correct</span>
+          <span *ngIf="i !== 0 && answer === ''">Answer</span>
+          <span *ngIf="answer !== ''">{{answer}}</span>
+        </button>
+              </p>
+                <div [formGroup]="newForm">
+                  <input class="form-control form-control-sm" type="text" placeholder="Answer" formControlName="answerInput" (keyup.enter)="chooseAnswer()">
+                </div> 
+                <button *ngIf="amendingQuestion === -1" type="button" class="btn btn-success" (click)="addQuestion()">Add Question</button>
+                <button *ngIf="amendingQuestion !== -1" type="button" class="btn btn-success" (click)="confirmAmend()">Amend</button>
+                <button *ngIf="amendingQuestion !== -1" type="button" class="btn btn-danger" (click)="amendingQuestion= -1; resetVariables()">Cancel</button>
+    </div>
+  </div>
+</div>
+<div style="margin-left: 18rem">
+<h3 style="text-align: center">Choose a background:</h3>
+<div style="text-align: center">
+  <button *ngFor="let bgOption of bgOptions; let i = index" class="btn btn-xl" [ngClass]="{'active': i=== bgOptionChosen}"
+[ngStyle]="{'background-color': bgOption}">{{bgOption}}</button>
+</div>
+</div>
+</div>
+<div style="margin-right: 90%;"><span style="color: white">&nbsp;</span></div>
+<div style="text-align: center; ">
+  <button  class="btn btn-primary" (click)="saveQuiz()">Save Quiz</button>
+  </div>

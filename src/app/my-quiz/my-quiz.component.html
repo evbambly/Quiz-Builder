@@ -1,0 +1,12 @@
+<div *ngIf="quiz">
+    <div class="userBackground" style="background-image:url('https://assets.wordpress.envato-static.com/uploads/2017/08/Screen-Shot-2017-08-31-at-3.45.30-PM.png'); "> 
+    <div style="width: 100%; position: sticky;  top: 0; z-index: 4;">
+        <div class="card-header" style="text-align: center; background: rgb(167, 164, 164);">
+            <h4 style="margin-top: 1%; color: white;">{{quiz.title}}</h4>
+        </div>
+        
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 *ngIf="quiz.description !== undefined" class="card-title">{{quiz.description}}</h5>
+      </div>
+    </div>

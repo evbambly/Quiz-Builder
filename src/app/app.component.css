@@ -1,0 +1,7 @@
+.li {
+    margin-top: 5%;
+ }
+ .navPill {
+    width: 1px;
+    background: linear-gradient(to bottom,  rgba(100,199,171,0) 0%,#428bca 53%,rgba(74,163,223,0) 100%);
+ }

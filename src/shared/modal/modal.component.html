@@ -1,0 +1,57 @@
+<div *ngIf="!modalCreation && details">
+<div class="modal-header" style="background-color: blanchedalmond;">
+  <h4 class="modal-title pull-left">You have finished the Quiz!</h4>
+</div>
+<div class="modal-body">
+  Your score was {{points}} out of {{max}}.
+</div>
+<div *ngIf="didPass()" style="text-align: center;">
+  <div class="card-body">
+    <h5 class="card-title">{{details.winText}}</h5>
+  <img src="{{details.winImg}}" class="card-img-top" width="80%" height="80%">
+</div>
+</div>
+<div *ngIf="didPass()== false" style="text-align: center;">
+  <div class="card-body">
+    <h5 class="card-title">{{details.loseText}}</h5>
+  <img src="{{details.loseImg}}" class="card-img-top" width="80%" height="80%" style="  margin-left: auto; margin-right: auto;">
+</div>
+<br><br><br>
+<share-button button="facebook" theme="circles-dark" [icon]="['fab', 'facebook-square']"></share-button>
+<share-button button="twitter" theme="circles-dark" [icon]="['fab', 'twitter-square']"></share-button>
+</div>
+</div>
+<div *ngIf="modalCreation && details">
+  <h4 class="modal-title pull-left">Choose a finish screen for your Quiz</h4>
+<div class="modal-body">
+  <div>
+    <span>What is the passing rate for your quiz?</span><br>
+    <span class="font-weight-bold blue-text mr-2 mt-1" style="display:inline">0</span>
+    <input type="range" class="custom-range w-50" min="0" max="100" step="1" [(ngModel)]="details.winRequirement">
+    <span class="font-weight-bold blue-text ml-2 mt-1">100</span> 
+    <span class="font-weight-bold blue-text ml-2 mt-1" style="display:block">{{details.winRequirement}}%</span>
+    </div>
+</div>
+<div>
+  <div class="card-body">
+    <span>Text for completing the quiz successfully:</span>
+    <app-text-click ngDefaultControl [(ngModel)]="winText" [reset]="false" [size]="4" [placeholder]="'Win Text'"></app-text-click>
+    <div style="width: 60%; margin:auto;"> 
+    <app-image-select ngDefaultControl [(ngModel)]="winImg"></app-image-select>
+    </div>
+</div>
+</div>
+<div class="vl"></div>
+<div>
+  <div class="card-body">
+      <span>Text for completing the quiz unsuccessfully:</span>
+      <app-text-click ngDefaultControl [(ngModel)]="loseText" [reset]="false" [size]="4" [placeholder]="'Lose Text'"></app-text-click>
+      <div style="width: 60%; margin:auto;"> 
+      <app-image-select ngDefaultControl [(ngModel)]="loseImg"></app-image-select>
+    </div>
+    </div> 
+</div>
+<div style="margin-left: 40%;">
+  <button style="margin: auto" class="btn btn-primary"(click)="finishCreation()">Finish</button>
+</div>
+</div>
